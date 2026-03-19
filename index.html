@@ -173,10 +173,14 @@
       top: 0; left: 0; right: 0;
       height: 68px;
       z-index: 500;
-      background: rgba(9,9,9,0.96);
+      background: rgba(9,9,9,0.98);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
+      /* Принудительно прибиваем к верху на iOS/Android */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     .header-inner {
@@ -701,15 +705,27 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 0;
+      padding: 9px 0;
       border-bottom: 1px solid var(--border);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
+      gap: 8px;
     }
-    .price-row strong { color: var(--light); font-weight: 500; }
+    .price-row strong {
+      color: var(--light);
+      font-weight: 500;
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
     .price-row span {
       font-family: var(--ff-mono);
-      font-size: 0.76rem;
+      font-size: 0.72rem;
       color: var(--gold);
+      flex: 0 0 auto;
+      white-space: nowrap;
+      text-align: right;
     }
 
     /* ══════════════════════════════════════
@@ -1542,8 +1558,8 @@
             <a class="c-link" href="tel:+79409244343">
               <span class="c-icon">☎</span>+7 (940) 924-43-43
             </a>
-            <a class="c-link" href="mailto:inertyugstroi@mail.ru">
-              <span class="c-icon">✉</span>inertyugstroi@mail.ru
+            <a class="c-link" href="/cdn-cgi/l/email-protection#432a2d2631373a36243037312c2a032e222a2f6d3136">
+              <span class="c-icon">✉</span><span class="__cf_email__" data-cfemail="0a63646f787e737f6d797e7865634a676b636624787f">[email&#160;protected]</span>
             </a>
             <a class="c-link" href="#">
               <span class="c-icon">◎</span>РА, г. Гагра, ул. Сухумское шоссе 212-а
@@ -1553,14 +1569,14 @@
             </a>
           </div>
           <div class="c-links" style="margin-top: 0; margin-bottom: 16px;">
-            <span class="c-link" style="cursor:default;">
-              <span class="c-icon" style="font-size:0.7rem;">ИНН</span>ИНН/КПП: 11002433 / 211000169
+            <span class="c-link" style="cursor:default; color: var(--dim);">
+              <span class="c-icon" style="font-size:0.7rem; color: var(--light);">ИНН</span>ИНН/КПП: 11002433 / 211000169
             </span>
-            <span class="c-link" style="cursor:default;">
-              <span class="c-icon" style="font-size:0.55rem;">р/с</span>407028101 0000 0000 069
+            <span class="c-link" style="cursor:default; color: var(--dim);">
+              <span class="c-icon" style="font-size:0.55rem; color: var(--light);">р/с</span>407028101 0000 0000 069
             </span>
-            <span class="c-link" style="cursor:default;">
-              <span class="c-icon" style="font-size:0.65rem;">БИК</span>БИК: 224100024
+            <span class="c-link" style="cursor:default; color: var(--dim);">
+              <span class="c-icon" style="font-size:0.65rem; color: var(--light);">БИК</span>БИК: 224100024
             </span>
           </div>
           <div class="social-row">
@@ -1609,7 +1625,7 @@
 </footer>
 
 <!-- ════════════ SCRIPTS ════════════ -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function () {
   'use strict';
 
@@ -1786,10 +1802,29 @@
         msg.style.color = '#e06060';
         return;
       }
-      msg.style.color = 'var(--gold)';
-      msg.textContent = 'Заявка отправлена — свяжемся с вами в ближайшее время';
-      form.reset();
+      /* Блокируем кнопку на время отправки */
+      var btn = form.querySelector('[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Отправка...';
+      /* Симуляция отправки — замените на реальный fetch при необходимости */
+      setTimeout(function () {
+        msg.style.color = 'var(--gold)';
+        msg.textContent = '✓ Заявка принята — свяжемся с вами в ближайшее время';
+        form.reset();
+        btn.disabled = false;
+        btn.textContent = 'Отправить заявку';
+        setTimeout(function () { msg.textContent = ''; }, 6000);
+      }, 800);
     });
+    /* Сброс ошибки при вводе */
+    var inputs = form.querySelectorAll('input, textarea, select');
+    for (var k = 0; k < inputs.length; k++) {
+      inputs[k].addEventListener('input', function () {
+        if (msg.style.color === 'rgb(224, 96, 96)') {
+          msg.textContent = '';
+        }
+      });
+    }
   }
 
 })();

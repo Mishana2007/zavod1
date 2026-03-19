@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ИнертЮгСтрой — Бетон, ЖБИ, Спецтехника</title>
+  <meta name="description" content="ИнертЮгСтрой: бетон B15–B40, ЖБИ, инертные материалы и аренда спецтехники. 14 лет системных поставок." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+
+    /* ══════════════════════════════════════
+       RESET
+    ══════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    a { text-decoration: none; }
+    ul { list-style: none; }
+    button { font-family: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ══════════════════════════════════════
+       VARIABLES
+    ══════════════════════════════════════ */
+    :root {
+      --void:    #090909;
+      --base:    #111111;
+      --slab:    #161616;
+      --surface: #1d1d1d;
+      --border:  #282828;
+      --muted:   #3a3a3a;
+      --mid:     #666666;
+      --dim:     #969696;
+      --light:   #c4c4c4;
+      --ghost:   #e6e6e6;
+      --white:   #f0f0f0;
+      --gold:    #c0a060;
+      --gold-h:  #d4b474;
+
+      --ff-title: 'Oswald', sans-serif;
+      --ff-body:  'IBM Plex Sans', sans-serif;
+      --ff-mono:  'IBM Plex Mono', monospace;
+
+      --r: 2px;
+      --ease: 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --w: 1280px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--void);
+      color: var(--light);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: var(--gold); color: var(--void); }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--base); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+    /* Noise texture */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 9998;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════════════
+       PROGRESS BAR
+    ══════════════════════════════════════ */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: var(--gold); width: 0%;
+      z-index: 9999; transition: width 0.1s linear;
+    }
+
+    /* ══════════════════════════════════════
+       LAYOUT
+    ══════════════════════════════════════ */
+    .container {
+      width: 100%;
+      max-width: var(--w);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 64px);
+    }
+
+    .slab { padding: clamp(64px, 10vw, 120px) 0; position: relative; }
+
+    /* ══════════════════════════════════════
+       TYPOGRAPHY
+    ══════════════════════════════════════ */
+    h1, h2, h3, h4 {
+      font-family: var(--ff-title);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+    }
+
+    .kicker {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .kicker::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════
+       BUTTONS
+    ══════════════════════════════════════ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 26px;
+      border-radius: var(--r);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: var(--ease);
+      white-space: nowrap;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--void);
+      border-color: var(--gold);
+    }
+    .btn-gold:hover {
+      background: var(--gold-h);
+      border-color: var(--gold-h);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 28px rgba(192,160,96,0.28);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ghost);
+      border-color: var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    /* ══════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════ */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 68px;
+      z-index: 500;
+      background: rgba(9,9,9,0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      gap: 32px;
+    }
+
+    /* ── LOGO with image ── */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .logo-img {
+      height: 44px;
+      width: auto;
+      display: block;
+      filter: brightness(1.05);
+    }
+    .logo-text {
+      font-family: var(--ff-title);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1.1;
+    }
+    .logo-text em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-left: auto;
+    }
+    .header-nav a {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      transition: color 0.2s;
+    }
+    .header-nav a:hover { color: var(--white); }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .header-phone {
+      font-family: var(--ff-mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.05em;
+      color: var(--light);
+      transition: color 0.2s;
+    }
+    .header-phone:hover { color: var(--gold); }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px; height: 40px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      cursor: pointer;
+      padding: 0;
+      margin-left: auto;
+      flex-shrink: 0;
+      transition: border-color var(--ease);
+    }
+    .hamburger:hover { border-color: var(--gold); }
+    .hamburger span {
+      display: block;
+      width: 18px; height: 1.5px;
+      background: var(--light);
+      transition: transform 0.3s ease, opacity 0.25s ease;
+      transform-origin: center;
+    }
+    .hamburger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ══════════════════════════════════════
+       MOBILE DRAWER
+    ══════════════════════════════════════ */
+    .mobile-drawer {
+      position: fixed;
+      top: 68px; left: 0; right: 0; bottom: 0;
+      z-index: 490;
+      background: #0d0d0d;
+      border-top: 2px solid var(--gold);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      transform: translateY(-16px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.36s cubic-bezier(0.25,0.46,0.45,0.94),
+                  opacity   0.36s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .mobile-drawer.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer-nav {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .drawer-nav a {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 28px;
+      font-family: var(--ff-title);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--light);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s, color 0.2s;
+    }
+    .drawer-nav a:last-child { border-bottom: none; }
+    .drawer-nav a:hover {
+      background: var(--surface);
+      color: var(--white);
+    }
+    .drawer-nav a .dn {
+      font-family: var(--ff-mono);
+      font-size: 0.58rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      opacity: 0.9;
+      flex-shrink: 0;
+    }
+
+    .drawer-phone {
+      padding: 20px 28px;
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--mid);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .drawer-phone a {
+      color: var(--light);
+      transition: color 0.2s;
+    }
+    .drawer-phone a:hover { color: var(--gold); }
+
+    .drawer-actions {
+      padding: 24px 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .drawer-actions .btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 0.78rem;
+    }
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-top: 68px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(9,9,9,0.4) 0%, rgba(9,9,9,0.82) 65%, #090909 100%),
+        url('https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=2000&q=80')
+        center / cover no-repeat;
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(40,40,40,0.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(40,40,40,0.22) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+
+    .hero-body {
+      position: relative; z-index: 1;
+      padding-bottom: clamp(56px, 8vw, 96px);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: end;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--ff-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7.5vw, 7rem);
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .hero h1 em { font-style: normal; color: var(--gold); display: block; }
+
+    .hero-sub {
+      font-size: clamp(0.88rem, 1.4vw, 1.02rem);
+      color: var(--dim);
+      font-weight: 300;
+      line-height: 1.75;
+      max-width: 440px;
+      margin-bottom: 32px;
+    }
+
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 48px;
+      border: 1px solid var(--border);
+    }
+    .stat-cell {
+      padding: 22px 16px;
+      text-align: center;
+      background: rgba(22,22,22,0.75);
+      backdrop-filter: blur(8px);
+      border-right: 1px solid var(--border);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell strong {
+      display: block;
+      font-family: var(--ff-title);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-cell span {
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .hero-cards { display: flex; flex-direction: column; gap: 14px; }
+
+    .hcard {
+      background: rgba(20,20,20,0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      padding: 22px 26px;
+      position: relative;
+    }
+    .hcard::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--gold);
+    }
+    .hcard-label {
+      font-family: var(--ff-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 7px;
+    }
+    .hcard-value {
+      font-family: var(--ff-title);
+      font-size: 1.3rem;
+      color: var(--white);
+    }
+    .hcard-sub {
+      font-size: 0.78rem;
+      color: var(--dim);
+      margin-top: 3px;
+    }
+
+    .grades {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+      margin-top: 4px;
+    }
+    .grade {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 7px 4px;
+      text-align: center;
+      font-family: var(--ff-mono);
+      font-size: 0.7rem;
+      color: var(--mid);
+      transition: var(--ease);
+      cursor: default;
+    }
+    .grade.on, .grade:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--void);
+    }
+
+    /* ══════════════════════════════════════
+       TICKER
+    ══════════════════════════════════════ */
+    .ticker {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--slab);
+    }
+    .ticker-inner {
+      display: flex;
+      width: max-content;
+      animation: tickerRun 30s linear infinite;
+    }
+    .ticker-inner span {
+      font-family: var(--ff-title);
+      font-size: 0.75rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 13px 36px;
+      border-right: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .ticker-inner span.t-gold { color: var(--gold); }
+    @keyframes tickerRun {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ══════════════════════════════════════
+       SECTION HEAD
+    ══════════════════════════════════════ */
+    .sec-head { margin-bottom: clamp(36px, 6vw, 64px); }
+    .sec-head h2 {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      color: var(--white);
+    }
+    .sec-head p {
+      color: var(--mid);
+      font-size: 0.94rem;
+      margin-top: 14px;
+      max-width: 540px;
+    }
+
+    /* ══════════════════════════════════════
+       SYSTEM
+    ══════════════════════════════════════ */
+    .section-system { background: var(--slab); }
+
+    .system-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .manifest {
+      background: var(--base);
+      padding: 52px 46px;
+      grid-row: span 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .manifest::after {
+      content: '"';
+      position: absolute;
+      bottom: -40px; right: 24px;
+      font-family: var(--ff-title);
+      font-size: 18rem;
+      color: var(--border);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .manifest h3 {
+      font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .manifest p { color: var(--dim); font-size: 0.93rem; line-height: 1.78; }
+
+    .pillar {
+      background: var(--slab);
+      padding: 34px 38px;
+      transition: background var(--ease);
+    }
+    .pillar:hover { background: var(--surface); }
+    .pillar-num {
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .pillar h4 {
+      font-size: 0.92rem;
+      color: var(--white);
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }
+    .pillar p { font-size: 0.83rem; color: var(--mid); line-height: 1.65; }
+
+    /* ══════════════════════════════════════
+       PRODUCTS
+    ══════════════════════════════════════ */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .pcard {
+      background: var(--slab);
+      padding: 38px 34px 34px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: background var(--ease);
+    }
+    .pcard:hover { background: var(--surface); }
+    .pcard::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s var(--ease);
+    }
+    .pcard:hover::after { transform: scaleX(1); }
+
+    .pcard-num {
+      font-family: var(--ff-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+    .pcard h3 {
+      font-size: clamp(1.25rem, 2vw, 1.6rem);
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .pcard-desc {
+      font-size: 0.81rem;
+      color: var(--mid);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .pcard-icon {
+      position: absolute;
+      top: 28px; right: 28px;
+      width: 40px; height: 40px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; opacity: 0.55;
+    }
+
+    .price-rows {
+      border-top: 1px solid var(--border);
+      margin-bottom: 26px;
+      flex: 1;
+    }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.84rem;
+    }
+    .price-row strong { color: var(--light); font-weight: 500; }
+    .price-row span {
+      font-family: var(--ff-mono);
+      font-size: 0.76rem;
+      color: var(--gold);
+    }
+
+    /* ══════════════════════════════════════
+       CALCULATOR
+    ══════════════════════════════════════ */
+    .section-calc { background: var(--base); }
+
+    .calc-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .calc-left { background: var(--slab); padding: 46px 42px; }
+    .calc-right {
+      background: var(--surface);
+      padding: 46px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .calc-right::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+    }
+
+    .fields { display: flex; flex-direction: column; gap: 18px; margin-bottom: 24px; }
+
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field label {
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+    .field input,
+    .field select {
+      background: var(--base);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      color: var(--white);
+      font-family: var(--ff-body);
+      font-size: 0.92rem;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+    }
+    .field input:focus,
+    .field select:focus { border-color: var(--gold); }
+    .field select option { background: var(--slab); color: var(--white); }
+    .field-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .res-block { margin-bottom: 20px; }
+    .res-label {
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 6px;
+    }
+    .res-val {
+      font-family: var(--ff-title);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--white);
+      line-height: 1;
+    }
+    .res-val.accent { color: var(--gold); }
+    .res-val sup { font-size: 0.5em; margin-left: 4px; color: var(--gold); }
+    .res-divider { height: 1px; background: var(--border); margin: 18px 0; }
+    .res-note {
+      font-size: 0.77rem;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    /* ══════════════════════════════════════
+       REVIEWS
+    ══════════════════════════════════════ */
+    .section-reviews { background: var(--slab); }
+
+    .reviews-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .rev-controls { display: flex; gap: 10px; }
+    .rev-btn {
+      width: 44px; height: 44px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--dim);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: var(--r);
+      transition: var(--ease);
+    }
+    .rev-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--void);
+    }
+
+    .reviews-viewport { overflow: hidden; }
+    .reviews-track {
+      display: flex;
+      gap: 1px;
+      background: var(--border);
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 1px solid var(--border);
+    }
+
+    .rcard {
+      background: var(--base);
+      padding: 40px 36px;
+      flex: 0 0 calc(33.333% - 0.67px);
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .rcard::before {
+      content: '"';
+      position: absolute;
+      top: 20px; right: 28px;
+      font-family: var(--ff-title);
+      font-size: 5rem;
+      color: var(--border);
+      line-height: 1;
+      user-select: none;
+    }
+    .rcard-text {
+      font-size: 0.9rem;
+      color: var(--light);
+      line-height: 1.75;
+      font-style: italic;
+      font-weight: 300;
+      margin-bottom: 24px;
+    }
+    .rcard-name {
+      font-family: var(--ff-title);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+    .rcard-role {
+      font-family: var(--ff-mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    /* ══════════════════════════════════════
+       FAQ
+    ══════════════════════════════════════ */
+    .faq-list { border: 1px solid var(--border); }
+
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-q {
+      width: 100%;
+      background: var(--slab);
+      border: none;
+      color: var(--light);
+      cursor: pointer;
+      padding: 22px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      text-align: left;
+      font-family: var(--ff-title);
+      font-size: clamp(0.82rem, 1.4vw, 0.98rem);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: background var(--ease), color var(--ease);
+    }
+    .faq-q:hover { background: var(--surface); }
+    .faq-q[aria-expanded="true"] { background: var(--surface); color: var(--gold); }
+
+    .faq-icon {
+      font-size: 1.3rem;
+      color: var(--gold);
+      font-family: var(--ff-mono);
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+      line-height: 1;
+    }
+    .faq-q[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+
+    .faq-a {
+      background: var(--base);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      padding: 0 30px;
+    }
+    .faq-a.open {
+      max-height: 280px;
+      padding: 22px 30px 26px;
+    }
+    .faq-a p { font-size: 0.91rem; color: var(--dim); line-height: 1.78; }
+
+    /* ══════════════════════════════════════
+       CONTACTS
+    ══════════════════════════════════════ */
+    .section-contacts { background: var(--void); }
+
+    .contacts-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .contacts-info {
+      background: var(--slab);
+      padding: 56px 50px;
+      position: relative;
+      overflow: hidden;
+    }
+    .contacts-info::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 320px; height: 320px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .contacts-info h2 {
+      font-size: clamp(1.4rem, 2.8vw, 2.3rem);
+      color: var(--white);
+      margin-bottom: 30px;
+    }
+
+    .c-links { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .c-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--dim);
+      font-size: 0.93rem;
+      transition: color 0.2s;
+    }
+    .c-link:hover { color: var(--gold); }
+    .c-icon {
+      width: 38px; height: 38px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .c-link:hover .c-icon { background: var(--gold); border-color: var(--gold); color: var(--void); }
+
+    .social-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .soc-link {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--mid);
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      border-radius: var(--r);
+      transition: var(--ease);
+    }
+    .soc-link:hover { background: var(--gold); border-color: var(--gold); color: var(--void); }
+
+    .contacts-form-side {
+      background: var(--base);
+      padding: 56px 50px;
+    }
+    .contacts-form-side h3 {
+      font-family: var(--ff-title);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 26px;
+    }
+
+    .cform { display: flex; flex-direction: column; gap: 14px; }
+    .cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .cform input,
+    .cform textarea,
+    .cform select {
+      background: var(--slab);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      color: var(--white);
+      font-family: var(--ff-body);
+      font-size: 0.9rem;
+      padding: 13px 15px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .cform input::placeholder,
+    .cform textarea::placeholder { color: var(--muted); }
+    .cform input:focus,
+    .cform textarea:focus,
+    .cform select:focus { border-color: var(--gold); }
+    .cform select option { background: var(--slab); color: var(--white); }
+    .cform textarea { resize: vertical; min-height: 96px; }
+    .form-msg {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      min-height: 18px;
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    .site-footer {
+      background: var(--void);
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 22px; }
+    .footer-links a {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ══════════════════════════════════════
+       REVEAL
+    ══════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+      .system-grid { grid-template-columns: 1fr; }
+      .manifest { grid-row: auto; }
+      .manifest::after { display: none; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .calc-wrap { grid-template-columns: 1fr; }
+      .contacts-wrap { grid-template-columns: 1fr; }
+      .rcard { flex: 0 0 calc(50% - 0.5px); }
+    }
+
+    @media (max-width: 900px) {
+      .header-nav { display: none; }
+      .header-cta  { display: none; }
+      .hamburger   { display: flex; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-cards { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: 1fr; }
+      .rcard { flex: 0 0 100%; }
+      .cform-row { grid-template-columns: 1fr; }
+      .field-pair { grid-template-columns: 1fr; }
+      .contacts-info, .contacts-form-side { padding: 36px 24px; }
+      .calc-left, .calc-right { padding: 36px 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.5rem; }
+      .hero-btns { flex-direction: column; }
+      .hero-btns .btn { width: 100%; }
+      .stat-cell { padding: 16px 10px; }
+      .stat-cell strong { font-size: 1.5rem; }
+      .logo-text { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ════════════ HEADER ════════════ -->
+<header class="site-header">
+  <div class="container header-inner">
+
+    <a href="#home" class="logo">
+      <!-- Логотип — замените src на путь к вашему файлу лого (IMG_4228.PNG) -->
+      <img
+        class="logo-img"
+        src="IMG_4228.PNG"
+        alt="ИнертЮгСтрой логотип"
+        onerror="this.style.display='none'"
+      />
+      <span class="logo-text">ИНЕРТ <em>ЮГ</em> СТРОЙ</span>
+    </a>
+
+    <nav class="header-nav" aria-label="Основное меню">
+      <a href="#home">Главная</a>
+      <a href="#products">Каталог</a>
+      <a href="#calc">Калькулятор</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+
+    <div class="header-cta">
+      <a class="header-phone" href="tel:+79409244343">+7 (940) 924-43-43</a>
+      <a class="btn btn-gold" href="#contacts">Получить расчёт</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Меню" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+</header>
+
+<!-- ════════════ MOBILE DRAWER ════════════ -->
+<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <nav class="drawer-nav">
+    <a href="#home">    <span class="dn">01</span>Главная</a>
+    <a href="#products"><span class="dn">02</span>Каталог</a>
+    <a href="#calc">    <span class="dn">03</span>Калькулятор</a>
+    <a href="#reviews"> <span class="dn">04</span>Отзывы</a>
+    <a href="#faq">     <span class="dn">05</span>FAQ</a>
+    <a href="#contacts"><span class="dn">06</span>Контакты</a>
+  </nav>
+  <div class="drawer-phone">Телефон: <a href="tel:+79409244343">+7 (940) 924-43-43</a></div>
+  <div class="drawer-actions">
+    <a class="btn btn-gold"    href="tel:+79409244343">☎ Позвонить сейчас</a>
+    <a class="btn btn-outline" href="#contacts">Оставить заявку</a>
+  </div>
+</div>
+
+<!-- ════════════ MAIN ════════════ -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-body">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <p class="hero-eyebrow">14 лет системных поставок на серьёзных объектах</p>
+          <h1>БЕТОН<br><em>ВЫСОКОГО</em><br>КЛАССА</h1>
+          <p class="hero-sub">Бетон B15–B40, ЖБИ изделия, инертные материалы и спецтехника — в одном графике поставок. Без задержек, без хаоса.</p>
+          <div class="hero-btns">
+            <a class="btn btn-gold"    href="#contacts">Заказать консультацию</a>
+            <a class="btn btn-outline" href="#products">Открыть каталог</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-cell"><strong data-counter="14">0</strong><span>лет на рынке</span></div>
+            <div class="stat-cell"><strong data-counter="350">0</strong><span>объектов</span></div>
+            <div class="stat-cell"><strong data-counter="24">0</strong><span>ч логистика</span></div>
+          </div>
+        </div>
+        <div class="hero-cards">
+          <div class="hcard">
+            <p class="hcard-label">Слот отгрузки</p>
+            <div class="hcard-value">≤ 15 минут</div>
+            <p class="hcard-sub">Подтверждение заявки на отгрузку</p>
+          </div>
+          <div class="hcard">
+            <p class="hcard-label">Активные марки</p>
+            <div class="grades">
+              <div class="grade">B15</div>
+              <div class="grade on">B20</div>
+              <div class="grade on">B25</div>
+              <div class="grade on">B30</div>
+              <div class="grade">B40</div>
+            </div>
+          </div>
+          <div class="hcard">
+            <p class="hcard-label">Документооборот</p>
+            <div class="hcard-value">100% закрытие</div>
+            <p class="hcard-sub">Накладные, паспорта, сертификаты</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-inner">
+      <span>бетон B15–B40</span><span class="t-gold">◆</span>
+      <span>ЖБИ изделия</span><span class="t-gold">◆</span>
+      <span>инертные материалы</span><span class="t-gold">◆</span>
+      <span>аренда спецтехники</span><span class="t-gold">◆</span>
+      <span>24 / 7 логистика</span><span class="t-gold">◆</span>
+      <span>подтверждение 15 мин</span><span class="t-gold">◆</span>
+      <span>бетон B15–B40</span><span class="t-gold">◆</span>
+      <span>ЖБИ изделия</span><span class="t-gold">◆</span>
+      <span>инертные материалы</span><span class="t-gold">◆</span>
+      <span>аренда спецтехники</span><span class="t-gold">◆</span>
+      <span>24 / 7 логистика</span><span class="t-gold">◆</span>
+      <span>подтверждение 15 мин</span><span class="t-gold">◆</span>
+    </div>
+  </div>
+
+  <!-- SYSTEM -->
+  <section class="slab section-system" id="system">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="kicker">операционная модель</p>
+        <h2>ЧЁТКАЯ СИСТЕМА<br>БЕЗ РУЧНОГО ХАОСА</h2>
+        <p>Согласование объёмов, расчёт марки, график машин, контроль разгрузки и документы — всё в одной цепочке.</p>
+      </div>
+      <div class="system-grid">
+        <article class="manifest reveal">
+          <h3>14 лет строим поставки как инженерную систему</h3>
+          <p>На площадке нет простоев и форс-мажоров, потому что мы закрываем весь цикл: от первичной спецификации до подписания закрывающих документов. Один менеджер, один договор, один телефон.</p>
+        </article>
+        <article class="pillar reveal">
+          <div class="pillar-num">01</div>
+          <h4>Точная спецификация</h4>
+          <p>Подбор марки и объёма под реальную нагрузку проекта — не по каталогу, а под вашу задачу.</p>
+        </article>
+        <article class="pillar reveal">
+          <div class="pillar-num">02</div>
+          <h4>Один менеджер</h4>
+          <p>Единая точка связи по договору, логистике и документам. Никаких переключений.</p>
+        </article>
+        <article class="pillar reveal">
+          <div class="pillar-num">03</div>
+          <h4>Контроль сроков</h4>
+          <p>Фиксированные окна отгрузки и прибытия на объект. Мы звоним первыми, если что-то меняется.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="slab" id="products">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="kicker">каталог</p>
+        <h2>БЕТОН, ЖБИ,<br>БЛОКИ И НАСОС</h2>
+        <p>Полный прайс-лист. Получите КП на любую позицию в день обращения.</p>
+      </div>
+      <div class="products-grid">
+
+        <!-- БЕТОН -->
+        <article class="pcard reveal">
+          <div class="pcard-icon">◈</div>
+          <div class="pcard-num">01 / 03</div>
+          <h3>Товарный бетон</h3>
+          <p class="pcard-desc">Марки B15–B40 для любых конструктивных задач. Паспорт качества на каждую машину.</p>
+          <div class="price-rows">
+            <div class="price-row"><strong>B15 (M200)</strong><span>7 500 ₽ · 8 250 с НДС</span></div>
+            <div class="price-row"><strong>B20 (M250)</strong><span>8 000 ₽ · 8 800 с НДС</span></div>
+            <div class="price-row"><strong>B22.5 (M300)</strong><span>8 500 ₽ · 9 350 с НДС</span></div>
+            <div class="price-row"><strong>B25 (M350)</strong><span>9 000 ₽ · 9 900 с НДС</span></div>
+            <div class="price-row"><strong>B30 (M400)</strong><span>9 500 ₽ · 10 450 с НДС</span></div>
+            <div class="price-row"><strong>B35 (M450)</strong><span>10 000 ₽ · 11 000 с НДС</span></div>
+            <div class="price-row"><strong>B40 (M500)</strong><span>10 500 ₽ · 11 550 с НДС</span></div>
+            <div class="price-row"><strong>B40 (M550)</strong><span>12 600 ₽ · 13 860 с НДС</span></div>
+          </div>
+          <a class="btn btn-gold" href="#contacts">Получить КП</a>
+        </article>
+
+        <!-- ЖБИ -->
+        <article class="pcard reveal">
+          <div class="pcard-icon">▦</div>
+          <div class="pcard-num">02 / 03</div>
+          <h3>ЖБИ изделия</h3>
+          <p class="pcard-desc">Кольца, дно, крышки, столбы, тетраподы. Поставка по этапам с фиксированным графиком.</p>
+          <div class="price-rows">
+            <div class="price-row"><strong>Кольцо КС 10-9 (метровое)</strong><span>8 500 ₽ · 9 350 с НДС</span></div>
+            <div class="price-row"><strong>Кольцо КС 15-9 (полтора)</strong><span>10 500 ₽ · 11 550 с НДС</span></div>
+            <div class="price-row"><strong>Кольцо КС 20-9 (двух)</strong><span>15 000 ₽ · 16 500 с НДС</span></div>
+            <div class="price-row"><strong>Дно КД 1160.150 (метровое)</strong><span>6 000 ₽ · 6 600 с НДС</span></div>
+            <div class="price-row"><strong>Дно КД (полтора)</strong><span>10 000 ₽ · 11 000 с НДС</span></div>
+            <div class="price-row"><strong>Дно КД (двух)</strong><span>11 000 ₽ · 12 100 с НДС</span></div>
+            <div class="price-row"><strong>Крышка КП (метровая)</strong><span>6 500 ₽ · 7 150 с НДС</span></div>
+            <div class="price-row"><strong>Крышка КП (полтора)</strong><span>9 000 ₽ · 9 900 с НДС</span></div>
+            <div class="price-row"><strong>Крышка КП (двух)</strong><span>10 000 ₽ · 11 000 с НДС</span></div>
+            <div class="price-row"><strong>Столбы высоковольтные 11,5м (ГОСТ)</strong><span>19 500 ₽ · 21 450 с НДС</span></div>
+            <div class="price-row"><strong>Столбы высоковольтные 9,5м (ГОСТ)</strong><span>18 500 ₽ · 20 350 с НДС</span></div>
+          </div>
+          <a class="btn btn-gold" href="#contacts">Запросить каталог</a>
+        </article>
+
+        <!-- БЛОКИ И НАСОС -->
+        <article class="pcard reveal">
+          <div class="pcard-icon">▦</div>
+          <div class="pcard-num">03 / 03</div>
+          <h3>Блоки и Насос</h3>
+          <p class="pcard-desc">Стеновые блоки, полублоки, а также аренда бетононасоса (28 и 37 м).</p>
+          <div class="price-rows">
+            <div class="price-row"><strong>Блок 20 (палет 84 шт)</strong><span>70 ₽/шт · палет 5 880 ₽</span></div>
+            <div class="price-row"><strong>Полублок 12 (палет 108 шт)</strong><span>60 ₽/шт · палет 6 480 ₽</span></div>
+            <div class="price-row"><strong>Насос 28 м</strong><span>1 000 ₽/м³ · до 15 куб — 15 000 ₽</span></div>
+            <div class="price-row"><strong>Насос 37 м</strong><span>1 000 ₽/м³ · до 15 куб — 15 000 ₽</span></div>
+          </div>
+          <a class="btn btn-gold" href="#contacts">Запросить цену</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR -->
+  <section class="slab section-calc" id="calc">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="kicker">калькулятор</p>
+        <h2>РАССЧИТАЙТЕ<br>СТОИМОСТЬ ОНЛАЙН</h2>
+      </div>
+      <div class="calc-wrap">
+        <div class="calc-left reveal">
+          <div class="fields">
+            <div class="field">
+              <label>Тип продукта</label>
+              <select id="c-type">
+                <option>Товарный бетон</option>
+                <option>ЖБИ изделия</option>
+                <option>Спецтехника</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Марка / позиция</label>
+              <select id="c-grade">
+                <option value="7500">B15 (M200) — 7 500 ₽/м³</option>
+                <option value="8000">B20 (M250) — 8 000 ₽/м³</option>
+                <option value="8500">B22.5 (M300) — 8 500 ₽/м³</option>
+                <option value="9000" selected>B25 (M350) — 9 000 ₽/м³</option>
+                <option value="9500">B30 (M400) — 9 500 ₽/м³</option>
+                <option value="10000">B35 (M450) — 10 000 ₽/м³</option>
+                <option value="10500">B40 (M500) — 10 500 ₽/м³</option>
+                <option value="12600">B40 (M550) — 12 600 ₽/м³</option>
+              </select>
+            </div>
+            <div class="field-pair">
+              <div class="field">
+                <label>Объём (м³)</label>
+                <input type="number" id="c-vol" value="50" min="1" max="9999" />
+              </div>
+              <div class="field">
+                <label>Доставка (км)</label>
+                <input type="number" id="c-dist" value="15" min="0" max="500" />
+              </div>
+            </div>
+            <div class="field">
+              <label>Режим отгрузки</label>
+              <select id="c-mode">
+                <option value="1">Стандартный</option>
+                <option value="1.15">Ускоренный +15%</option>
+                <option value="1.3">Ночной +30%</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-gold" id="c-calc" style="width:100%">Рассчитать стоимость</button>
+        </div>
+        <div class="calc-right reveal">
+          <div class="res-block">
+            <div class="res-label">Стоимость материала</div>
+            <div class="res-val" id="c-base">285 000 <sup>₽</sup></div>
+          </div>
+          <div class="res-divider"></div>
+          <div class="res-block">
+            <div class="res-label">Стоимость доставки</div>
+            <div class="res-val" id="c-delivery">7 500 <sup>₽</sup></div>
+          </div>
+          <div class="res-divider"></div>
+          <div class="res-block">
+            <div class="res-label">Итого</div>
+            <div class="res-val accent" id="c-total">292 500 <sup>₽</sup></div>
+          </div>
+          <p class="res-note">Расчёт предварительный. Точная цена зависит от условий проекта, объёма и сезона. Позвоните — уточним за 5 минут.</p>
+          <a class="btn btn-outline" href="#contacts">Отправить заявку на КП</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="slab section-reviews" id="reviews">
+    <div class="container">
+      <div class="reviews-header reveal">
+        <div>
+          <p class="kicker">отзывы клиентов</p>
+          <h2>РАБОТАЮТ С НАМИ<br>ГОДАМИ</h2>
+        </div>
+        <div class="rev-controls">
+          <button class="rev-btn" id="rev-prev" aria-label="Назад">←</button>
+          <button class="rev-btn" id="rev-next" aria-label="Вперёд">→</button>
+        </div>
+      </div>
+      <div class="reviews-viewport reveal">
+        <div class="reviews-track" id="reviews-track">
+          <article class="rcard">
+            <p class="rcard-text">«Работаем третий сезон. Поставка бетона на монолит идёт без срывов, документы и закрывающие всегда в срок. Единственный подрядчик, которому доверяем объёмные заливки.»</p>
+            <div><div class="rcard-name">ООО «Монолит-Проект»</div><div class="rcard-role">Фундаментный подряд</div></div>
+          </article>
+          <article class="rcard">
+            <p class="rcard-text">«По ЖБИ закрыли большой объём плит и колец. Удобно, что нам сразу дали график отгрузок — всё пришло по этапам, без завалов на объекте.»</p>
+            <div><div class="rcard-name">ГК «ЮгИнвестСтрой»</div><div class="rcard-role">Инфраструктурный объект</div></div>
+          </article>
+          <article class="rcard">
+            <p class="rcard-text">«Берём у ребят технику и бетон в одном окне. Экономит время и реально снимает лишние согласования между подрядчиками.»</p>
+            <div><div class="rcard-name">ИП Тенгиз Абхазов</div><div class="rcard-role">Генподрядчик</div></div>
+          </article>
+          <article class="rcard">
+            <p class="rcard-text">«Ночной слот сработал чётко: миксеры пришли по времени, бетононасос без задержек. Для нас это был критичный этап монолитных работ.»</p>
+            <div><div class="rcard-name">ООО «СтройЛиния»</div><div class="rcard-role">Коммерческое строительство</div></div>
+          </article>
+          <article class="rcard">
+            <p class="rcard-text">«Сильная команда по логистике. Даже при плотном графике отгрузок держат темп и предупреждают заранее по каждому рейсу. Работаем второй год.»</p>
+            <div><div class="rcard-name">ЗАО «Берег Девелопмент»</div><div class="rcard-role">Жилой комплекс</div></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="slab" id="faq">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="kicker">частые вопросы</p>
+        <h2>FAQ</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button" aria-expanded="false">
+            <span>Как быстро можно получить расчёт стоимости?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Предварительный расчёт даём в день обращения. Для точного КП нам нужны объёмы, марка, адрес объекта и желаемый график поставки.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button" aria-expanded="false">
+            <span>Можно ли заказать поставку по графику на несколько недель?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Да. Формируем календарь отгрузок под этапы строительства и резервируем нужные объёмы и технику на весь период.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button" aria-expanded="false">
+            <span>Какую марку бетона обычно берут на фундамент?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Чаще всего B20–B25. Но финальный выбор зависит от проекта, нагрузки, климатических условий и требований по влагостойкости. Наш инженер поможет с выбором.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button" aria-expanded="false">
+            <span>Вы работаете со срочными и ночными отгрузками?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Да. Есть ускоренный и ночной режимы. Они рассчитываются отдельным коэффициентом и согласуются заранее с диспетчером.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button" aria-expanded="false">
+            <span>Можно ли взять спецтехнику вместе с оператором?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Да, техника доступна как с оператором, так и по отдельному согласованию. В калькуляторе можно сразу выбрать нужный вариант.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button" aria-expanded="false">
+            <span>Какие документы вы предоставляете на бетон?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Паспорт качества, сертификат соответствия, товарная накладная и счёт-фактура — полный пакет на каждую партию. Документы закрываются в срок по договору.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section class="slab section-contacts" id="contacts">
+    <div class="container">
+      <div class="contacts-wrap">
+        <div class="contacts-info reveal">
+          <p class="kicker">контакты</p>
+          <h2>ОСТАВЬТЕ ЗАЯВКУ — ПОЛУЧИТЕ ПЛАН ПОСТАВКИ</h2>
+          <div class="c-links">
+            <a class="c-link" href="tel:+79409244343">
+              <span class="c-icon">☎</span>+7 (940) 924-43-43
+            </a>
+            <a class="c-link" href="mailto:inertyugstroi@mail.ru">
+              <span class="c-icon">✉</span>inertyugstroi@mail.ru
+            </a>
+            <a class="c-link" href="#">
+              <span class="c-icon">◎</span>РА, г. Гагра, ул. Сухумское шоссе 212-а
+            </a>
+            <a class="c-link" href="#">
+              <span class="c-icon">◎</span>Гагрский р-н, с. Алахадзы, ул. Инал-Ипа д. 1
+            </a>
+          </div>
+          <div class="c-links" style="margin-top: 0; margin-bottom: 16px;">
+            <span class="c-link" style="cursor:default;">
+              <span class="c-icon" style="font-size:0.7rem;">ИНН</span>ИНН/КПП: 11002433 / 211000169
+            </span>
+            <span class="c-link" style="cursor:default;">
+              <span class="c-icon" style="font-size:0.55rem;">р/с</span>407028101 0000 0000 069
+            </span>
+            <span class="c-link" style="cursor:default;">
+              <span class="c-icon" style="font-size:0.65rem;">БИК</span>БИК: 224100024
+            </span>
+          </div>
+          <div class="social-row">
+            <a class="soc-link" href="#">Telegram</a>
+            <a class="soc-link" href="#">WhatsApp</a>
+            <a class="soc-link" href="#">VK</a>
+          </div>
+        </div>
+        <div class="contacts-form-side reveal">
+          <h3>Отправить заявку</h3>
+          <form class="cform" id="contact-form" novalidate>
+            <div class="cform-row">
+              <input type="text" name="name"  placeholder="Ваше имя"  required />
+              <input type="tel"  name="phone" placeholder="Телефон"    required />
+            </div>
+            <input type="email" name="email" placeholder="Email (необязательно)" />
+            <select name="service">
+              <option value="" disabled selected>Что вас интересует?</option>
+              <option>Товарный бетон</option>
+              <option>ЖБИ изделия</option>
+              <option>Аренда спецтехники</option>
+              <option>Инертные материалы</option>
+              <option>Комплексная поставка</option>
+            </select>
+            <textarea name="message" placeholder="Описание объекта, объёмы, сроки..."></textarea>
+            <button class="btn btn-gold" type="submit" style="width:100%">Отправить заявку</button>
+            <p class="form-msg" id="form-msg" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© 2026 ООО «ИнертЮгСтрой» — все права защищены</p>
+    <nav class="footer-links">
+      <a href="tel:+79409244343">+7 (940) 924-43-43</a>
+      <a href="#products">Каталог</a>
+      <a href="#contacts">Заявка</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ════════════ SCRIPTS ════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* PROGRESS BAR */
+  var bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', function () {
+    var s = document.documentElement.scrollTop || document.body.scrollTop;
+    var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    bar.style.width = (h > 0 ? (s / h * 100) : 0) + '%';
+  }, { passive: true });
+
+  /* MOBILE DRAWER */
+  var hamburger = document.getElementById('hamburger');
+  var drawer    = document.getElementById('mobile-drawer');
+  var open      = false;
+
+  function openMenu() {
+    open = true;
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    hamburger.classList.add('is-open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    open = false;
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    hamburger.classList.remove('is-open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', function () {
+    if (open) { closeMenu(); } else { openMenu(); }
+  });
+
+  var drawerLinks = drawer.querySelectorAll('a');
+  for (var i = 0; i < drawerLinks.length; i++) {
+    drawerLinks[i].addEventListener('click', closeMenu);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && open) { closeMenu(); }
+  });
+
+  /* COUNTER ANIMATION */
+  function runCounter(el) {
+    if (el._done) return;
+    el._done = true;
+    var target   = parseInt(el.getAttribute('data-counter'), 10);
+    var duration = 1500;
+    var startTime = null;
+    function tick(now) {
+      if (!startTime) startTime = now;
+      var pct = Math.min((now - startTime) / duration, 1);
+      el.textContent = Math.floor(pct * target);
+      if (pct < 1) { requestAnimationFrame(tick); }
+      else { el.textContent = target; }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* REVEAL ON SCROLL */
+  var revObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        var counters = e.target.querySelectorAll('[data-counter]');
+        for (var i = 0; i < counters.length; i++) { runCounter(counters[i]); }
+        revObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  var revEls = document.querySelectorAll('.reveal');
+  for (var i = 0; i < revEls.length; i++) { revObs.observe(revEls[i]); }
+
+  /* Hero stats counters */
+  var statsObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        var counters = e.target.querySelectorAll('[data-counter]');
+        for (var i = 0; i < counters.length; i++) { runCounter(counters[i]); }
+        statsObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  var heroStats = document.querySelector('.hero-stats');
+  if (heroStats) { statsObs.observe(heroStats); }
+
+  /* FAQ ACCORDION */
+  var faqBtns = document.querySelectorAll('.faq-q');
+  for (var i = 0; i < faqBtns.length; i++) {
+    faqBtns[i].addEventListener('click', function () {
+      var panel  = this.nextElementSibling;
+      var isOpen = this.getAttribute('aria-expanded') === 'true';
+      for (var j = 0; j < faqBtns.length; j++) {
+        faqBtns[j].setAttribute('aria-expanded', 'false');
+        faqBtns[j].nextElementSibling.classList.remove('open');
+      }
+      if (!isOpen) {
+        this.setAttribute('aria-expanded', 'true');
+        panel.classList.add('open');
+      }
+    });
+  }
+
+  /* REVIEWS SLIDER */
+  var track = document.getElementById('reviews-track');
+  var rIdx  = 0;
+
+  function visCount() {
+    if (window.innerWidth <= 640)  return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }
+  function cardCount() { return track ? track.children.length : 5; }
+
+  function slide() {
+    var cards = track.getElementsByClassName('rcard');
+    if (!cards.length) return;
+    var vis = visCount();
+    var max = Math.max(0, cardCount() - vis);
+    rIdx    = Math.min(Math.max(rIdx, 0), max);
+    var w = cards[0].getBoundingClientRect().width + 1;
+    track.style.transform = 'translateX(-' + (rIdx * w) + 'px)';
+  }
+
+  document.getElementById('rev-prev').addEventListener('click', function () {
+    rIdx = Math.max(0, rIdx - 1);
+    slide();
+  });
+  document.getElementById('rev-next').addEventListener('click', function () {
+    rIdx = Math.min(cardCount() - visCount(), rIdx + 1);
+    slide();
+  });
+  window.addEventListener('resize', slide, { passive: true });
+
+  /* CALCULATOR */
+  function fmt(n) { return n.toLocaleString('ru-RU'); }
+
+  function calcRun() {
+    var price    = parseInt(document.getElementById('c-grade').value, 10) || 9000;
+    var vol      = parseFloat(document.getElementById('c-vol').value)     || 50;
+    var dist     = parseFloat(document.getElementById('c-dist').value)    || 0;
+    var mode     = parseFloat(document.getElementById('c-mode').value)    || 1;
+    var base     = Math.round(price * vol * mode);
+    var trips    = Math.ceil(vol / 7);
+    var delivery = Math.round(dist * 50 * trips);
+    var total    = base + delivery;
+    document.getElementById('c-base').innerHTML     = fmt(base)     + ' <sup>₽</sup>';
+    document.getElementById('c-delivery').innerHTML = fmt(delivery) + ' <sup>₽</sup>';
+    document.getElementById('c-total').innerHTML    = fmt(total)    + ' <sup>₽</sup>';
+  }
+
+  document.getElementById('c-calc').addEventListener('click', calcRun);
+  var calcInputs = ['c-grade','c-vol','c-dist','c-mode'];
+  for (var i = 0; i < calcInputs.length; i++) {
+    document.getElementById(calcInputs[i]).addEventListener('change', calcRun);
+  }
+
+  /* CONTACT FORM */
+  var form = document.getElementById('contact-form');
+  var msg  = document.getElementById('form-msg');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name  = form.querySelector('[name="name"]').value.trim();
+      var phone = form.querySelector('[name="phone"]').value.trim();
+      if (!name || !phone) {
+        msg.textContent = 'Заполните имя и телефон';
+        msg.style.color = '#e06060';
+        return;
+      }
+      msg.style.color = 'var(--gold)';
+      msg.textContent = 'Заявка отправлена — свяжемся с вами в ближайшее время';
+      form.reset();
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>

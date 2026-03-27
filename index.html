@@ -1,9 +1,12 @@
+
+Copy
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+ 
   <!-- ═══════════════════════════════════════════════
        SEO: TITLE & META
   ═══════════════════════════════════════════════ -->
@@ -12,7 +15,7 @@
   <meta name="keywords" content="бетон Гагра, купить бетон Абхазия, ЖБИ Гагра, товарный бетон B25, аренда спецтехники Гагра, бетон B15 B20 B25 B30 B40, бетононасос Гагра, инертные материалы Абхазия, ИнертЮгСтрой" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://inertugstroy.ru/" />
-
+ 
   <!-- ═══════════════════════════════════════════════
        SEO: OPEN GRAPH
   ═══════════════════════════════════════════════ -->
@@ -23,14 +26,14 @@
   <meta property="og:image"       content="https://inertugstroy.ru/og-image.jpg" />
   <meta property="og:locale"      content="ru_RU" />
   <meta property="og:site_name"   content="ИнертЮгСтрой" />
-
+ 
   <!-- ═══════════════════════════════════════════════
        SEO: TWITTER CARD
   ═══════════════════════════════════════════════ -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="ИнертЮгСтрой — Бетон и ЖБИ в Гагре" />
   <meta name="twitter:description" content="Поставки бетона B15–B40, ЖБИ и аренда спецтехники в Абхазии. 14 лет опыта." />
-
+ 
   <!-- ═══════════════════════════════════════════════
        SEO: STRUCTURED DATA — LocalBusiness
   ═══════════════════════════════════════════════ -->
@@ -68,7 +71,7 @@
     }
   }
   </script>
-
+ 
   <!-- ═══════════════════════════════════════════════
        SEO: STRUCTURED DATA — FAQ
   ═══════════════════════════════════════════════ -->
@@ -128,7 +131,7 @@
     ]
   }
   </script>
-
+ 
   <!-- ═══════════════════════════════════════════════
        SEO: STRUCTURED DATA — BreadcrumbList
   ═══════════════════════════════════════════════ -->
@@ -143,7 +146,7 @@
     ]
   }
   </script>
-
+ 
   <!-- ═══════════════════════════════════════════════
        SEO: STRUCTURED DATA — Product (Бетон)
   ═══════════════════════════════════════════════ -->
@@ -164,11 +167,11 @@
     }
   }
   </script>
-
+ 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
+ 
   <style>
     /* ══════════════════════════════════════
        RESET
@@ -178,7 +181,7 @@
     ul { list-style: none; }
     button { font-family: inherit; }
     img { display: block; max-width: 100%; }
-
+ 
     /* ══════════════════════════════════════
        VARIABLES
     ══════════════════════════════════════ */
@@ -196,18 +199,18 @@
       --white:   #f0f0f0;
       --gold:    #c0a060;
       --gold-h:  #d4b474;
-
+ 
       --ff-title: 'Oswald', sans-serif;
       --ff-body:  'IBM Plex Sans', sans-serif;
       --ff-mono:  'IBM Plex Mono', monospace;
-
+ 
       --r: 2px;
       --ease: 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       --w: 1280px;
     }
-
+ 
     html { scroll-behavior: smooth; }
-
+ 
     body {
       background: var(--void);
       color: var(--light);
@@ -217,12 +220,12 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-
+ 
     ::selection { background: var(--gold); color: var(--void); }
     ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: var(--base); }
     ::-webkit-scrollbar-thumb { background: var(--gold); }
-
+ 
     /* Noise texture */
     body::after {
       content: '';
@@ -230,7 +233,7 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
       pointer-events: none;
     }
-
+ 
     /* ══════════════════════════════════════
        PROGRESS BAR
     ══════════════════════════════════════ */
@@ -239,7 +242,7 @@
       background: var(--gold); width: 0%;
       z-index: 9999; transition: width 0.1s linear;
     }
-
+ 
     /* ══════════════════════════════════════
        LAYOUT
     ══════════════════════════════════════ */
@@ -249,39 +252,9 @@
       margin: 0 auto;
       padding: 0 clamp(20px, 5vw, 64px);
     }
-
-    .logo-img {
-  display: none;
-}
-
-    .logo-text {
-  font-family: var(--ff-title);
-  font-size: 1.3rem;          /* было 1.05rem – увеличено */
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--white);
-  line-height: 1.1;
-  white-space: nowrap;        /* запрещаем перенос на новую строку */
-}
-
-
-    @media (max-width: 480px) {
-  .logo-text {
-    display: inline-block;   /* отменяем скрытие */
-    font-size: 1rem;         /* уменьшаем на телефонах */
-    white-space: normal;     /* разрешаем перенос, если нужно */
-  }
-  .hero h1 { font-size: 2.5rem; }
-  .hero-btns { flex-direction: column; }
-  .hero-btns .btn { width: 100%; }
-  .stat-cell { padding: 16px 10px; }
-  .stat-cell strong { font-size: 1.5rem; }
-  /* удаляем старую строку .logo-text { display: none; } */
-}
-
+ 
     .slab { padding: clamp(64px, 10vw, 120px) 0; position: relative; }
-
+ 
     /* ══════════════════════════════════════
        TYPOGRAPHY
     ══════════════════════════════════════ */
@@ -292,7 +265,7 @@
       line-height: 1.0;
       letter-spacing: 0.02em;
     }
-
+ 
     .kicker {
       font-family: var(--ff-mono);
       font-size: 0.68rem;
@@ -310,7 +283,7 @@
       background: var(--gold);
       flex-shrink: 0;
     }
-
+ 
     /* ══════════════════════════════════════
        BUTTONS
     ══════════════════════════════════════ */
@@ -331,7 +304,7 @@
       transition: var(--ease);
       white-space: nowrap;
     }
-
+ 
     .btn-gold {
       background: var(--gold);
       color: var(--void);
@@ -343,7 +316,7 @@
       transform: translateY(-1px);
       box-shadow: 0 8px 28px rgba(192,160,96,0.28);
     }
-
+ 
     .btn-outline {
       background: transparent;
       color: var(--ghost);
@@ -354,7 +327,7 @@
       color: var(--gold);
       transform: translateY(-1px);
     }
-
+ 
     /* ══════════════════════════════════════
        HEADER
     ══════════════════════════════════════ */
@@ -371,26 +344,20 @@
       transform: translateZ(0);
       will-change: transform;
     }
-
+ 
     .header-inner {
       display: flex;
       align-items: center;
       height: 100%;
       gap: 32px;
     }
-
+ 
     .logo {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-shrink: 0;
       text-decoration: none;
-    }
-    .logo-img {
-      height: 44px;
-      width: auto;
-      display: block;
-      filter: brightness(1.05);
     }
     .logo-text {
       font-family: var(--ff-title);
@@ -405,7 +372,7 @@
       font-style: normal;
       color: var(--gold);
     }
-
+ 
     .header-nav {
       display: flex;
       align-items: center;
@@ -421,7 +388,7 @@
       transition: color 0.2s;
     }
     .header-nav a:hover { color: var(--white); }
-
+ 
     .header-cta {
       display: flex;
       align-items: center;
@@ -436,7 +403,7 @@
       transition: color 0.2s;
     }
     .header-phone:hover { color: var(--gold); }
-
+ 
     /* ── HAMBURGER ── */
     .hamburger {
       display: none;
@@ -465,7 +432,7 @@
     .hamburger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .hamburger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
+ 
     /* ══════════════════════════════════════
        MOBILE DRAWER
     ══════════════════════════════════════ */
@@ -489,7 +456,7 @@
       opacity: 1;
       pointer-events: auto;
     }
-
+ 
     .drawer-nav {
       padding: 8px 0;
       border-bottom: 1px solid var(--border);
@@ -522,7 +489,7 @@
       opacity: 0.9;
       flex-shrink: 0;
     }
-
+ 
     .drawer-phone {
       padding: 20px 28px;
       font-family: var(--ff-mono);
@@ -537,7 +504,7 @@
       transition: color 0.2s;
     }
     .drawer-phone a:hover { color: var(--gold); }
-
+ 
     .drawer-actions {
       padding: 24px 28px 32px;
       display: flex;
@@ -550,7 +517,7 @@
       padding: 16px;
       font-size: 0.78rem;
     }
-
+ 
     /* ══════════════════════════════════════
        HERO
     ══════════════════════════════════════ */
@@ -563,7 +530,7 @@
       position: relative;
       overflow: hidden;
     }
-
+ 
     .hero-bg {
       position: absolute; inset: 0;
       background:
@@ -580,19 +547,19 @@
         linear-gradient(90deg, rgba(40,40,40,0.22) 1px, transparent 1px);
       background-size: 72px 72px;
     }
-
+ 
     .hero-body {
       position: relative; z-index: 1;
       padding-bottom: clamp(56px, 8vw, 96px);
     }
-
+ 
     .hero-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 56px;
       align-items: end;
     }
-
+ 
     .hero-eyebrow {
       font-family: var(--ff-mono);
       font-size: 0.66rem;
@@ -610,14 +577,14 @@
       background: var(--gold);
       flex-shrink: 0;
     }
-
+ 
     .hero h1 {
       font-size: clamp(3rem, 7.5vw, 7rem);
       color: var(--white);
       margin-bottom: 24px;
     }
     .hero h1 em { font-style: normal; color: var(--gold); display: block; }
-
+ 
     .hero-sub {
       font-size: clamp(0.88rem, 1.4vw, 1.02rem);
       color: var(--dim);
@@ -626,9 +593,9 @@
       max-width: 440px;
       margin-bottom: 32px;
     }
-
+ 
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-
+ 
     .hero-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -658,9 +625,9 @@
       text-transform: uppercase;
       color: var(--mid);
     }
-
+ 
     .hero-cards { display: flex; flex-direction: column; gap: 14px; }
-
+ 
     .hcard {
       background: rgba(20,20,20,0.82);
       backdrop-filter: blur(16px);
@@ -693,7 +660,7 @@
       color: var(--dim);
       margin-top: 3px;
     }
-
+ 
     .grades {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -716,7 +683,7 @@
       border-color: var(--gold);
       color: var(--void);
     }
-
+ 
     /* ══════════════════════════════════════
        TICKER
     ══════════════════════════════════════ */
@@ -746,12 +713,12 @@
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
-
+ 
     /* ══════════════════════════════════════
        SYSTEM
     ══════════════════════════════════════ */
     .section-system { background: var(--base); }
-
+ 
     .sec-head {
       margin-bottom: clamp(36px, 6vw, 60px);
     }
@@ -766,7 +733,7 @@
       max-width: 540px;
       line-height: 1.7;
     }
-
+ 
     .system-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -774,7 +741,7 @@
       background: var(--border);
       border: 1px solid var(--border);
     }
-
+ 
     .manifest {
       grid-column: 1;
       grid-row: 1 / 3;
@@ -803,7 +770,7 @@
       margin-bottom: 16px;
     }
     .manifest p { color: var(--dim); font-size: 0.93rem; line-height: 1.78; }
-
+ 
     .pillar {
       background: var(--slab);
       padding: 34px 38px;
@@ -824,7 +791,7 @@
       letter-spacing: 0.04em;
     }
     .pillar p { font-size: 0.83rem; color: var(--mid); line-height: 1.65; }
-
+ 
     /* ══════════════════════════════════════
        PRODUCTS
     ══════════════════════════════════════ */
@@ -835,7 +802,7 @@
       gap: 1px;
       background: var(--border);
     }
-
+ 
     .pcard {
       background: var(--slab);
       padding: 38px 34px 34px;
@@ -857,7 +824,7 @@
       transition: transform 0.4s var(--ease);
     }
     .pcard:hover::after { transform: scaleX(1); }
-
+ 
     .pcard-num {
       font-family: var(--ff-mono);
       font-size: 0.6rem;
@@ -884,7 +851,7 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 1.1rem; opacity: 0.55;
     }
-
+ 
     .price-rows {
       border-top: 1px solid var(--border);
       margin-bottom: 26px;
@@ -916,12 +883,12 @@
       white-space: nowrap;
       text-align: right;
     }
-
+ 
     /* ══════════════════════════════════════
        CALCULATOR
     ══════════════════════════════════════ */
     .section-calc { background: var(--base); }
-
+ 
     .calc-wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -929,7 +896,7 @@
       gap: 1px;
       background: var(--border);
     }
-
+ 
     .calc-left { background: var(--slab); padding: 46px 42px; }
     .calc-right {
       background: var(--surface);
@@ -945,9 +912,9 @@
       height: 3px;
       background: var(--gold);
     }
-
+ 
     .fields { display: flex; flex-direction: column; gap: 18px; margin-bottom: 24px; }
-
+ 
     .field { display: flex; flex-direction: column; gap: 7px; }
     .field label {
       font-family: var(--ff-mono);
@@ -975,7 +942,7 @@
     .field select:focus { border-color: var(--gold); }
     .field select option { background: var(--slab); color: var(--white); }
     .field-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
+ 
     .res-block { margin-bottom: 20px; }
     .res-label {
       font-family: var(--ff-mono);
@@ -1000,12 +967,12 @@
       line-height: 1.65;
       margin-bottom: 24px;
     }
-
+ 
     /* ══════════════════════════════════════
        REVIEWS
     ══════════════════════════════════════ */
     .section-reviews { background: var(--slab); }
-
+ 
     .reviews-header {
       display: flex;
       justify-content: space-between;
@@ -1031,7 +998,7 @@
       border-color: var(--gold);
       color: var(--void);
     }
-
+ 
     .reviews-viewport { overflow: hidden; }
     .reviews-track {
       display: flex;
@@ -1040,7 +1007,7 @@
       transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       border: 1px solid var(--border);
     }
-
+ 
     .rcard {
       background: var(--base);
       padding: 40px 36px;
@@ -1084,15 +1051,15 @@
       text-transform: uppercase;
       color: var(--mid);
     }
-
+ 
     /* ══════════════════════════════════════
        FAQ
     ══════════════════════════════════════ */
     .faq-list { border: 1px solid var(--border); }
-
+ 
     .faq-item { border-bottom: 1px solid var(--border); }
     .faq-item:last-child { border-bottom: none; }
-
+ 
     .faq-q {
       width: 100%;
       background: var(--slab);
@@ -1114,7 +1081,7 @@
     }
     .faq-q:hover { background: var(--surface); }
     .faq-q[aria-expanded="true"] { background: var(--surface); color: var(--gold); }
-
+ 
     .faq-icon {
       font-size: 1.3rem;
       color: var(--gold);
@@ -1124,7 +1091,7 @@
       line-height: 1;
     }
     .faq-q[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
-
+ 
     .faq-a {
       background: var(--base);
       max-height: 0;
@@ -1137,12 +1104,12 @@
       padding: 22px 30px 26px;
     }
     .faq-a p { font-size: 0.91rem; color: var(--dim); line-height: 1.78; }
-
+ 
     /* ══════════════════════════════════════
        CONTACTS
     ══════════════════════════════════════ */
     .section-contacts { background: var(--void); }
-
+ 
     .contacts-wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1150,7 +1117,7 @@
       gap: 1px;
       background: var(--border);
     }
-
+ 
     .contacts-info {
       background: var(--slab);
       padding: 56px 50px;
@@ -1171,7 +1138,7 @@
       color: var(--white);
       margin-bottom: 30px;
     }
-
+ 
     .c-links { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
     .c-link {
       display: flex;
@@ -1191,7 +1158,7 @@
       transition: background 0.2s, border-color 0.2s;
     }
     .c-link:hover .c-icon { background: var(--gold); border-color: var(--gold); color: var(--void); }
-
+ 
     .social-row { display: flex; gap: 8px; flex-wrap: wrap; }
     .soc-link {
       background: var(--surface);
@@ -1206,7 +1173,7 @@
       transition: var(--ease);
     }
     .soc-link:hover { background: var(--gold); border-color: var(--gold); color: var(--void); }
-
+ 
     .contacts-form-side {
       background: var(--base);
       padding: 56px 50px;
@@ -1220,7 +1187,7 @@
       color: var(--white);
       margin-bottom: 26px;
     }
-
+ 
     .cform { display: flex; flex-direction: column; gap: 14px; }
     .cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .cform input,
@@ -1254,7 +1221,7 @@
       color: var(--gold);
       min-height: 18px;
     }
-
+ 
     /* ══════════════════════════════════════
        FOOTER
     ══════════════════════════════════════ */
@@ -1287,7 +1254,7 @@
       transition: color 0.2s;
     }
     .footer-links a:hover { color: var(--gold); }
-
+ 
     /* ══════════════════════════════════════
        REVEAL
     ══════════════════════════════════════ */
@@ -1297,7 +1264,7 @@
       transition: opacity 0.65s ease, transform 0.65s ease;
     }
     .reveal.in { opacity: 1; transform: translateY(0); }
-
+ 
     /* ══════════════════════════════════════
        SEO: HIDDEN TEXT BLOCK (скрытые ключи)
        Видим поисковику — невидим юзеру
@@ -1310,7 +1277,7 @@
       white-space: nowrap;
       border: 0;
     }
-
+ 
     /* ══════════════════════════════════════
        RESPONSIVE
     ══════════════════════════════════════ */
@@ -1325,13 +1292,13 @@
       .contacts-wrap { grid-template-columns: 1fr; }
       .rcard { flex: 0 0 calc(50% - 0.5px); }
     }
-
+ 
     @media (max-width: 900px) {
       .header-nav { display: none; }
       .header-cta  { display: none; }
       .hamburger   { display: flex; }
     }
-
+ 
     @media (max-width: 640px) {
       .hero-cards { grid-template-columns: 1fr; }
       .products-grid { grid-template-columns: 1fr; }
@@ -1342,20 +1309,19 @@
       .calc-left, .calc-right { padding: 36px 24px; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
-
+ 
     @media (max-width: 480px) {
       .hero h1 { font-size: 2.5rem; }
       .hero-btns { flex-direction: column; }
       .hero-btns .btn { width: 100%; }
       .stat-cell { padding: 16px 10px; }
       .stat-cell strong { font-size: 1.5rem; }
-      .logo-text { display: none; }
     }
-
+ 
   </style>
 </head>
 <body>
-
+ 
 <!-- SEO: скрытые ключевые фразы для поиска -->
 <div aria-hidden="true" class="seo-text">
   Купить бетон Гагра. Бетон B15 B20 B25 B30 B35 B40 Абхазия цена. Товарный бетон Гагрский район.
@@ -1365,24 +1331,17 @@
   Монолитное строительство Гагра. ИнертЮгСтрой отзывы. ООО ИнертЮгСтрой ИНН 11002433.
   Бетон марки M200 M250 M300 M350 M400 M450 M500 цена Абхазия. Заказать бетон Гагра телефон.
 </div>
-
+ 
 <div id="progress-bar"></div>
-
+ 
 <!-- ════════════ HEADER ════════════ -->
 <header class="site-header" role="banner">
   <div class="container header-inner">
-
+ 
     <a href="#home" class="logo" aria-label="ИнертЮгСтрой — главная страница">
-      <img
-        class="logo-img"
-        src="IMG_4228.PNG"
-        alt="ИнертЮгСтрой — бетон и ЖБИ в Гагре"
-        width="44" height="44"
-        onerror="this.style.display='none'"
-      />
       <span class="logo-text">ИНЕРТ <em>ЮГ</em> СТРОЙ</span>
     </a>
-
+ 
     <nav class="header-nav" aria-label="Основное меню">
       <a href="#home">Главная</a>
       <a href="#products">Каталог</a>
@@ -1391,21 +1350,21 @@
       <a href="#faq">FAQ</a>
       <a href="#contacts">Контакты</a>
     </nav>
-
+ 
     <div class="header-cta">
       <a class="header-phone" href="tel:+79409244343" aria-label="Позвонить: +7 (940) 924-43-43">+7 (940) 924-43-43</a>
       <a class="btn btn-gold" href="#contacts">Получить расчёт</a>
     </div>
-
+ 
     <button class="hamburger" id="hamburger" aria-label="Открыть меню" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
     </button>
-
+ 
   </div>
 </header>
-
+ 
 <!-- ════════════ MOBILE DRAWER ════════════ -->
 <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true" role="dialog" aria-label="Мобильное меню">
   <nav class="drawer-nav" aria-label="Мобильное меню">
@@ -1422,10 +1381,10 @@
     <a class="btn btn-outline" href="#contacts">Оставить заявку</a>
   </div>
 </div>
-
+ 
 <!-- ════════════ MAIN ════════════ -->
 <main role="main">
-
+ 
   <!-- HERO -->
   <section class="hero" id="home" aria-labelledby="hero-title">
     <div class="hero-bg" role="img" aria-label="Строительный объект — бетонирование"></div>
@@ -1470,7 +1429,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- TICKER -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker-inner">
@@ -1488,7 +1447,7 @@
       <span>подтверждение 15 мин</span><span class="t-gold">◆</span>
     </div>
   </div>
-
+ 
   <!-- SYSTEM -->
   <section class="slab section-system" id="system" aria-labelledby="system-title">
     <div class="container">
@@ -1520,7 +1479,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- PRODUCTS -->
   <section class="slab" id="products" aria-labelledby="products-title">
     <div class="container">
@@ -1530,7 +1489,7 @@
         <p>Полный прайс-лист. Получите КП на любую позицию в день обращения.</p>
       </div>
       <div class="products-grid">
-
+ 
         <!-- БЕТОН -->
         <article class="pcard reveal" itemscope itemtype="https://schema.org/Product">
           <div class="pcard-icon" aria-hidden="true">◈</div>
@@ -1550,7 +1509,7 @@
           </div>
           <a class="btn btn-gold" href="#contacts">Получить КП</a>
         </article>
-
+ 
         <!-- ЖБИ -->
         <article class="pcard reveal" itemscope itemtype="https://schema.org/Product">
           <div class="pcard-icon" aria-hidden="true">▦</div>
@@ -1572,7 +1531,7 @@
           </div>
           <a class="btn btn-gold" href="#contacts">Запросить каталог</a>
         </article>
-
+ 
         <!-- БЛОКИ И НАСОС -->
         <article class="pcard reveal" itemscope itemtype="https://schema.org/Product">
           <div class="pcard-icon" aria-hidden="true">▦</div>
@@ -1587,11 +1546,11 @@
           </div>
           <a class="btn btn-gold" href="#contacts">Запросить цену</a>
         </article>
-
+ 
       </div>
     </div>
   </section>
-
+ 
   <!-- CALCULATOR -->
   <section class="slab section-calc" id="calc" aria-labelledby="calc-title">
     <div class="container">
@@ -1665,7 +1624,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- REVIEWS -->
   <section class="slab section-reviews" id="reviews" aria-labelledby="reviews-title">
     <div class="container">
@@ -1705,7 +1664,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- FAQ -->
   <section class="slab" id="faq" aria-labelledby="faq-title">
     <div class="container">
@@ -1759,7 +1718,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- CONTACTS -->
   <section class="slab section-contacts" id="contacts" aria-labelledby="contacts-title">
     <div class="container">
@@ -1771,8 +1730,8 @@
             <a class="c-link" href="tel:+79409244343" aria-label="Позвонить +7 940 924-43-43">
               <span class="c-icon" aria-hidden="true">☎</span>+7 (940) 924-43-43
             </a>
-            <a class="c-link" href="mailto:info@inertugstroy.ru" aria-label="Написать на email">
-              <span class="c-icon" aria-hidden="true">✉</span>info@inertugstroy.ru
+            <a class="c-link" href="/cdn-cgi/l/email-protection#deb7b0b8b19eb7b0bbacaaabb9adaaacb1a7f0acab" aria-label="Написать на email">
+              <span class="c-icon" aria-hidden="true">✉</span><span class="__cf_email__" data-cfemail="acc5c2cac3ecc5c2c9ded8d9cbdfd8dec3d582ded9">[email&#160;protected]</span>
             </a>
             <a class="c-link" href="#" aria-label="Адрес: г. Гагра, ул. Сухумское шоссе 212-а">
               <span class="c-icon" aria-hidden="true">◎</span>РА, г. Гагра, ул. Сухумское шоссе 212-а
@@ -1822,9 +1781,9 @@
       </div>
     </div>
   </section>
-
+ 
 </main>
-
+ 
 <!-- FOOTER -->
 <footer class="site-footer" role="contentinfo">
   <div class="container footer-inner">

@@ -1814,40 +1814,46 @@
 
   /* ══════════════════════════════════════
      TELEGRAM BOT CONFIG
-     !! ЗАМЕНИТЕ YOUR_CHAT_ID на реальный ID вашей группы !!
-     Как получить: добавьте бота в группу, напишите сообщение,
-     откройте https://api.telegram.org/bot8790663320:AAGiDyoewpHzGfNNGl_JZ0Pv-bVUTRUx0Ak/getUpdates
-     Найдите "chat":{"id": -XXXXXXX} — это и есть ваш CHAT_ID
   ══════════════════════════════════════ */
   var TG_BOT_TOKEN = '8790663320:AAGiDyoewpHzGfNNGl_JZ0Pv-bVUTRUx0Ak';
-  var TG_CHAT_ID   = '-1003723447589'; // ← ЗАМЕНИТЕ! Например: -1001234567890
-
-  function sendToTelegram(data) {
-    var text =
-      '🔔 <b>Новая заявка с сайта inertugstroy.ru</b>\n\n' +
-      '👤 <b>Имя:</b> ' + escapeHtml(data.name) + '\n' +
-      '📞 <b>Телефон:</b> ' + escapeHtml(data.phone) + '\n' +
-      (data.email    ? '📧 <b>Email:</b> '   + escapeHtml(data.email)   + '\n' : '') +
-      (data.service  ? '🏗 <b>Услуга:</b> '  + escapeHtml(data.service) + '\n' : '') +
-      (data.message  ? '💬 <b>Сообщение:</b>\n' + escapeHtml(data.message) + '\n' : '') +
-      '\n⏰ ' + new Date().toLocaleString('ru-RU', {timeZone: 'Europe/Moscow'});
-
-    return fetch('https://api.telegram.org/bot' + TG_BOT_TOKEN + '/sendMessage', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id:    TG_CHAT_ID,
-        text:       text,
-        parse_mode: 'HTML'
-      })
-    });
-  }
+  var TG_CHAT_ID   = -1003723447589; // правильный ID супергруппы (число, без кавычек)
 
   function escapeHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function sendToTelegram(data) {
+    var text =
+      '🔔 <b>Новая заявка с сайта inertugstroy.ru</b>\n\n' +
+      '👤 <b>Имя:</b> ' + escapeHtml(data.name) + '\n' +
+      '📞 <b>Телефон:</b> ' + escapeHtml(data.phone) + '\n';
+
+    if (data.email && data.email.trim() !== '') {
+      text += '📧 <b>Email:</b> ' + escapeHtml(data.email) + '\n';
+    }
+    if (data.service && data.service.trim() !== '' && data.service !== 'Что вас интересует?') {
+      text += '🏗 <b>Услуга:</b> ' + escapeHtml(data.service) + '\n';
+    }
+    if (data.message && data.message.trim() !== '') {
+      text += '💬 <b>Сообщение:</b>\n' + escapeHtml(data.message) + '\n';
+    }
+
+    text += '\n⏰ ' + new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' });
+
+    return fetch('https://api.telegram.org/bot' + TG_BOT_TOKEN + '/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TG_CHAT_ID,
+        text: text,
+        parse_mode: 'HTML'
+      })
+    });
   }
 
   /* PROGRESS BAR */
@@ -2046,19 +2052,13 @@
             form.reset();
             setTimeout(function () { msg.textContent = ''; }, 7000);
           } else {
-            throw new Error(data.description || 'Telegram error');
+            throw new Error(data.description || 'Неизвестная ошибка Telegram');
           }
         })
         .catch(function (err) {
-          console.error('Telegram send error:', err);
-          /* Если CHAT_ID не заменён — показываем подсказку */
-          if (TG_CHAT_ID === '-1003723447589') {
-            msg.style.color = '#e06060';
-            msg.textContent = '⚠ Укажите CHAT_ID в коде сайта';
-          } else {
-            msg.style.color = '#e06060';
-            msg.textContent = 'Ошибка отправки. Позвоните нам: +7 (940) 924-43-43';
-          }
+          console.error('Ошибка отправки в Telegram:', err);
+          msg.style.color = '#e06060';
+          msg.textContent = 'Ошибка отправки. Позвоните нам: +7 (940) 924-43-43';
         })
         .finally(function () {
           btn.disabled = false;
